@@ -289,7 +289,7 @@
       "tableName": "matiere",
       "createScript": "`.`matiere` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT, `splats` INT, `diametre` INT, `intDiametre` INT, `longueur` INT, `largeur`INT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `matiere`( `designation`, `description`, `splats`, `diametre`, `intDiametre`, `longueur`, `unites`, `quantite`, `pu`) VALUES (':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `matiere`( `designation`, `description`, `splats`, `diametre`, `intDiametre`, `longueur`,`:largeur`, `unites`, `quantite`, `pu`) VALUES (':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
         "corresp": {
           "designation" : "string",
           "description" :"string",
@@ -297,6 +297,7 @@
           "diametre" :"decimal",
           "intDiametre" : "decimal",
           "longueur" :"decimal",
+          "largeur" :"decimal",
           "unites" : "string",
           "quantites" :"decimal",
           "pu" : "decimal"
@@ -352,21 +353,11 @@
       "tableName": "papier",
       "createScript": "`.`papier` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT NOT NULL, `grain` INT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `papier`( `outil`, `embout`, `machine`, `queueCylindre`, `Ars`, `diamètre`, `filetage`, `pas`, `longueur`, `largeur`, `epaisseur`, `dent`, `materiaux`, `unites`, `quantite`, `pu`) VALUES (':outil',':embout',':machine',':queue_cylindrique',':ARS',':diametre',':filletage',':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `papier`( `designation`, `description`, `grain`, `unites`, `quantite`, `pu`) VALUES (':designation',':description',':grain',':unites',':quantites',':pu')",
         "corresp": {
-          "outil" : "string",
-          "embout" : "boolPres",
-          "machine" : "boolPres",
-          "queue_cylindrique" : "boolPres",
-          "ARS" : "boolPres",
-          "diametre" : "decimal",
-          "filletage" :"decimal",
-          "pas" : "decimal",
-          "longueur" :"decimal",
-          "largeur" : "decimal",
-          "epaisseur" :"decimal",
-          "dents" : "decimal",
-          "matériau" :"string",
+          "designation" :"string",
+          "description" : "string",
+          "grain" :"decimal",
           "unites" : "string",
           "quantites" :"decimal",
           "pu" : "decimal"
@@ -393,21 +384,11 @@
       "tableName": "tiges",
       "createScript": "`.`tiges` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `materiau`TINYTEXT, `filetage` TINYTEXT NOT NULL, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `tiges`( `outil`, `embout`, `machine`, `queueCylindre`, `Ars`, `diamètre`, `filetage`, `pas`, `longueur`, `largeur`, `epaisseur`, `dent`, `materiaux`, `unites`, `quantite`, `pu`) VALUES (':outil',':embout',':machine',':queue_cylindrique',':ARS',':diametre',':filletage',':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `tiges`( `designation`, `materiau`, `filetage`, `unites`, `quantite`, `pu`) VALUES (':designation',':materiau',':filetage',':unites',':quantites',':pu')",
         "corresp": {
-          "outil" : "string",
-          "embout" : "boolPres",
-          "machine" : "boolPres",
-          "queue_cylindrique" : "boolPres",
-          "ARS" : "boolPres",
-          "diametre" : "decimal",
-          "filletage" :"decimal",
-          "pas" : "decimal",
-          "longueur" :"decimal",
-          "largeur" : "decimal",
-          "epaisseur" :"decimal",
-          "dents" : "decimal",
-          "matériau" :"string",
+          "designation" :"string",
+          "materiau" : "string",
+          "filetage" :"string",
           "unites" : "string",
           "quantites" :"decimal",
           "pu" : "decimal"
