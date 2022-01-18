@@ -1,0 +1,417 @@
+{
+  "users": {
+    "grant": {
+      "require": "REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;",
+      "globalPrivilege": "GRANT USAGE",
+      "specificPrivilege": "GRANT ALL PRIVILEGES",
+      "grantOption": "WITH GRANT OPTION"
+    },
+    "reader": {
+      "require":"REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;",
+      "globalPrivilege":"GRANT USAGE",
+      "specificPrivilege":"GRANT ALL PRIVILEGES",
+      "grantOption":"WITH GRANT OPTION"
+    }
+  },
+  "database": {
+    "createScript": {
+      "beforeName": "CREATE DATABASE IF NOT EXISTS `",
+      "options": "` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+    },
+    "createOrder": ["alestaraudlame","bobine","cartouche","consommable","disqueTronMeul","epi","foret","matInfo","matiere","piles","papier","tiges"],
+    "deleteOrder": []
+  },
+  "dataTables": [
+    {
+      "tableName": "alestaraudlame",
+      "createScript": "`.`alestaraudlame` ( `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, `outil` TINYTEXT NOT NULL , `embout` BOOLEAN NOT NULL , `machine` BOOLEAN NOT NULL , `queueCylindre` BOOLEAN NOT NULL , `Ars` BOOLEAN NOT NULL , `diamètre` DECIMAL , `filetage` DECIMAL , `pas` DECIMAL , `longueur` DECIMAL , `largeur` DECIMAL , `epaisseur` DECIMAL , `dent` INT , `materiaux` TINYTEXT , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `alestaraudlame`( `outil`, `embout`, `machine`, `queueCylindre`, `Ars`, `diamètre`, `filetage`, `pas`, `longueur`, `largeur`, `epaisseur`, `dent`, `materiaux`, `unites`, `quantite`, `pu`) VALUES (':outil',':embout',':machine',':queue_cylindrique',':ARS',':diametre',':filletage',':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "corresp": {
+          "outil" : "string",
+          "embout" : "boolPres",
+          "machine" : "boolPres",
+          "queue_cylindrique" : "boolPres",
+          "ARS" : "boolPres",
+          "diametre" : "decimal",
+          "filletage" :"decimal",
+          "pas" : "decimal",
+          "longueur" :"decimal",
+          "largeur" : "decimal",
+          "epaisseur" :"decimal",
+          "dents" : "decimal",
+          "matériau" :"string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "id",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "bobine",
+      "createScript": "`.`bobine` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, `matiere` TINYTEXT NOT NULL , `diametre` DECIMAL NOT NULL , `poids` DECIMAL NOT NULL , `couleur` TINYTEXT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `bobine`( `matiere`, `diametre`, `poids`, `couleur`, `unites`, `quantite`, `pu`) VALUES (':Matiere',':Diametre',':Poids',':Couleur','kg',':quantites',':pu')",
+        "corresp": {
+          "Matiere" : "string",
+          "Diametre" : "decimal",
+          "Poids" : "decimal",
+          "Couleur" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "cartouche",
+      "createScript": "`.`cartouche` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, `secteur` TINYTEXT NOT NULL , `machine` TINYTEXT NOT NULL , `ref` TINYTEXT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `cartouche`( `secteur`, `machine`, `ref`, `unites`, `quantite`, `pu`) VALUES (':Secteur',':Machine',':Ref_Cartouches','Pièce',':quantites',':pu')",
+        "corresp": {
+          "Secteur" : "string",
+          "Machine" : "string",
+          "Ref_Cartouches" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "consommable",
+      "createScript": "`.`consommable` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL )ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `consommable`( `designation`, `unites`, `quantite`, `pu`) VALUES (':designation',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" : "string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "disqueTronMeul",
+      "createScript": "`.`disqueTronMeul` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL,`diametre` INT NOT NULL, `epaisseur` DECIMAL NOT NULL, `diametre_axe` DECIMAL, `utilisation` TINYTEXT, `description` TINYTEXT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `disqueTronMeul`( `designation`, `diametre`, `epaisseur`, `diametre_axe`, `utilisation`, `description`,`unites`, `quantite`, `pu`) VALUES (':designation',':Diamètre',':Epaisseur',':Diamètre_axe',':utilisation',':Description',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" : "string",
+          "Diamètre" : "decimal",
+          "Epaisseur" : "decimal",
+          "Diamètre_axe" : "decimal",
+          "utilisation" : "string",
+          "Description" : "string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "epi",
+      "createScript": "`.`epi` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `taille` TINYTEXT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `epi`( `designation`, `taille`, `unites`, `quantite`, `pu`) VALUES (':designation',':Taille',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" : "string",
+          "Taille" : "string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "foret",
+      "createScript": "`.`foret` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`diametre1` DECIMAL NOT NULL, `diametre2` DECIMAL, `diametreUnit` TINYTEXT NOT NULL, `angle` INT, `ars` BOOLEAN NOT NULL, `taille` TINYTEXT, `forme` TINYTEXT, `function`TINYTEXT, `type` TINYTEXT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `foret`( `diametre1`, `diametre2`, `diametreUnit`, `angle`, `ars`,`taille`, `forme`, `function`, `type`, `unites`, `quantite`, `pu`) VALUES (':diametre1',':diametre2',':diametreUnit',':angle',':ars',':taille',':forme',':function',':type',':unites',':quantites',':pu')",
+        "corresp": {
+          "diametre1" : "decimal",
+          "diametre2" :"decimal",
+          "diametreUnit" : "string",
+          "angle" :"decimal",
+          "ars" : "boolPres",
+          "taille" : "string",
+          "forme" :"string",
+          "function" : "string",
+          "type" :"string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "matInfo",
+      "createScript": "`.`matInfo` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `connectique` TINYTEXT, `longueur` DECIMAL, `longUnit` TINYTEXT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `matInfo`( `designation`, `connectique`, `longueur`, `longUnit`, `unites`, `quantite`, `pu`) VALUES (':designation',':connectique',':longueur',':longUnit','Pièce',':quantites',':pu')",
+        "corresp": {
+          "designation" : "string",
+          "connectique" :"string",
+          "longueur" : "decimal",
+          "longUnit" :"string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "matiere",
+      "createScript": "`.`matiere` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT, `splats` INT, `diametre` INT, `intDiametre` INT, `longueur` INT, `largeur`INT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `matiere`( `designation`, `description`, `splats`, `diametre`, `intDiametre`, `longueur`,`largeur`, `unites`, `quantite`, `pu`) VALUES (':designation', ':description',':splats',':diametre',':intDiametre',':longueur',':largeur',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" : "string",
+          "description" :"string",
+          "splats" : "decimal",
+          "diametre" :"decimal",
+          "intDiametre" : "decimal",
+          "longueur" :"decimal",
+          "largeur" :"decimal",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "piles",
+      "createScript": "`.`piles` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `piles`(`designation`, `unites`, `quantite`, `pu`) VALUES (':designation',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" :"string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "papier",
+      "createScript": "`.`papier` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT, `grain` INT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `papier`( `designation`, `description`, `grain`, `unites`, `quantite`, `pu`) VALUES (':designation',':description',':grain',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" :"string",
+          "description" : "string",
+          "grain" :"decimal",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    },
+    {
+      "tableName": "tiges",
+      "createScript": "`.`tiges` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `materiau`TINYTEXT, `filetage` TINYTEXT NOT NULL, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "loadScript": {
+        "stmt": "INSERT INTO `tiges`( `designation`, `materiau`, `filetage`, `unites`, `quantite`, `pu`) VALUES (':designation',':materiau',':filetage',':unites',':quantites',':pu')",
+        "corresp": {
+          "designation" :"string",
+          "materiau" : "string",
+          "filetage" :"string",
+          "unites" : "string",
+          "quantites" :"decimal",
+          "pu" : "decimal"
+        }
+      },
+      "Foreigner": [
+      ],
+      "primaryKey": "",
+      "foreignKey": [
+        {
+          "key": "",
+          "referenceTable": "",
+          "referenceColumn": ""
+        }
+      ],
+      "RecursiveKey": [
+        {
+          "key": "",
+          "referenceColumn": ""
+        }
+      ]
+    }
+  ]
+}
+
+
