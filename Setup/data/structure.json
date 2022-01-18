@@ -98,7 +98,7 @@
       "tableName": "cartouche",
       "createScript": "`.`cartouche` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, `secteur` TINYTEXT NOT NULL , `machine` TINYTEXT NOT NULL , `ref` TINYTEXT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `alestaraudlame`( `secteur`, `machine`, `ref`, `unites`, `quantite`, `pu`) VALUES (':Secteur',':Machine',':Ref_Cartouches','Pièce',':quantites',':pu')",
+        "stmt": "INSERT INTO `cartouche`( `secteur`, `machine`, `ref`, `unites`, `quantite`, `pu`) VALUES (':Secteur',':Machine',':Ref_Cartouches','Pièce',':quantites',':pu')",
         "corresp": {
           "Secteur" : "string",
           "Machine" : "string",
@@ -157,7 +157,7 @@
       "tableName": "disqueTronMeul",
       "createScript": "`.`disqueTronMeul` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL,`diametre` INT NOT NULL, `epaisseur` DECIMAL NOT NULL, `diametre_axe` DECIMAL, `utilisation` TINYTEXT, `description` TINYTEXT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `disqueTronMeul`( `designation`, `diametre`, `epaisseur`, `diametre_axe`, `utilisation`, `description`,`unites`, `quantite`, `pu`) VALUES (':outil',':embout',':machine',':queue_cylindrique',':ARS',':diametre',':filletage',':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `disqueTronMeul`( `designation`, `diametre`, `epaisseur`, `diametre_axe`, `utilisation`, `description`,`unites`, `quantite`, `pu`) VALUES (':designation',':Diamètre',':Epaisseur',':Diamètre_axe',':utilisation',':Description',':unites',':quantites',':pu')",
         "corresp": {
           "designation" : "string",
           "Diamètre" : "decimal",
@@ -289,7 +289,7 @@
       "tableName": "matiere",
       "createScript": "`.`matiere` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT, `splats` INT, `diametre` INT, `intDiametre` INT, `longueur` INT, `largeur`INT, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `matiere`( `designation`, `description`, `splats`, `diametre`, `intDiametre`, `longueur`,`:largeur`, `unites`, `quantite`, `pu`) VALUES (':pas',':longueur',':largeur',':epaisseur',':dents',':matériau',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `matiere`( `designation`, `description`, `splats`, `diametre`, `intDiametre`, `longueur`,`largeur`, `unites`, `quantite`, `pu`) VALUES (':designation', ':description',':splats',':diametre',':intDiametre',':longueur',':largeur',':unites',':quantites',':pu')",
         "corresp": {
           "designation" : "string",
           "description" :"string",
@@ -324,7 +324,7 @@
       "tableName": "piles",
       "createScript": "`.`piles` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
-        "stmt": "INSERT INTO `piles`(':designation',':unites',':quantites',':pu')",
+        "stmt": "INSERT INTO `piles`(`designation`, `unites`, `quantite`, `pu`) VALUES (':designation',':unites',':quantites',':pu')",
         "corresp": {
           "designation" :"string",
           "unites" : "string",
@@ -351,7 +351,7 @@
     },
     {
       "tableName": "papier",
-      "createScript": "`.`papier` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT NOT NULL, `grain` INT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
+      "createScript": "`.`papier` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,`designation` TINYTEXT NOT NULL, `description` TINYTEXT, `grain` INT NOT NULL , `unites` TINYTEXT NOT NULL , `quantite` DECIMAL NOT NULL , `pu` DECIMAL NOT NULL)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;",
       "loadScript": {
         "stmt": "INSERT INTO `papier`( `designation`, `description`, `grain`, `unites`, `quantite`, `pu`) VALUES (':designation',':description',':grain',':unites',':quantites',':pu')",
         "corresp": {
