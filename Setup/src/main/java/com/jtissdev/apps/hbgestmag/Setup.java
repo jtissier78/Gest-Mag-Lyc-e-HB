@@ -1,21 +1,21 @@
-package com.jtissdev.apps.HBGestMag;
+package com.jtissdev.apps.hbgestmag;
 
 import com.jtissdev.databaseconnect.DbGestion;
 import com.jtissdev.databaseconnect.FlieReaderWirtter.XlsxReaderWritter;
-import com.jtissdev.databaseconnect.Parameter.*;
+import com.jtissdev.databaseconnect.Parameter.DbCParser;
+import com.jtissdev.databaseconnect.Parameter.Parameter;
 import org.json.simple.JSONObject;
 
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Setup {
-
-    private static final JSONObject structure = DbCParser.parseFile("./data/structure.json");
+    private static final JSONObject structure = DbCParser.parseFile("./Setup/data/structure.json");
     private static final InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
     private static final String dataPath = "./data/Inventaire Magasin 2021 en cours Modifier.xlsx";
-    private static final Scanner scanner = new Scanner(System.in);
+
     private static DbGestion dbGest;
     private static Connection connexion;
 
@@ -25,7 +25,7 @@ public class Setup {
         System.out.println("=================================================================");
         System.out.println("Bienvenue dans le Script de Maintenance de l'application de \n Gestion du Magasin du Lycéee Henri Brisson de Vierzon.");
         System.out.println("=================================================================");
-
+        Scanner scanner = new Scanner(System.in);
         int choice = 0;
         while (choice != 99) {
             System.out.println(printChoice());
@@ -43,6 +43,7 @@ public class Setup {
     }
 
     private static void LoadChoice() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("=================================================================");
         System.out.println("Merci de Choisir le Format de Fichier source.");
         System.out.println("=================================================================");
@@ -77,16 +78,16 @@ public class Setup {
                 System.out.println("=================================================================");
                 XlsxLoad();
                 System.out.println("=================================================================");
-                System.out.println("test fini");
+                System.out.println("Loading Finished");
                 System.out.println("=================================================================");
                 break;
             case 3:
                 System.out.println("=================================================================");
-                System.out.println("test de load .");
+                System.out.println("Saving Data");
                 System.out.println("=================================================================");
                 SaveData();
                 System.out.println("=================================================================");
-                System.out.println("test fini");
+                System.out.println("Data Saved");
                 System.out.println("=================================================================");
                 break;
             default:
@@ -97,6 +98,31 @@ public class Setup {
     }
 
     private static void SaveData() {
+        JSONObject object = dbGest.SaveDataToJson();
+        JsonWrite(object,"./Setup/data/dataSaved.json");
+    }
+
+    private static void JsonWrite(JSONObject object, String path) {
+        FileWriter wrfile = null;
+        File file = new File(path);
+        file.getParentFile().mkdirs(); // Will create parent directories if not exists
+        try {
+            file.createNewFile();
+            FileOutputStream s = new FileOutputStream(file,false);
+            wrfile = new FileWriter(path);
+            wrfile.write(object.toJSONString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                wrfile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -107,7 +133,7 @@ public class Setup {
                 System.out.println("Vous avez choisi d'annuler le chargement.");
                 System.out.println("=================================================================");
                 break;
-           /* case 1:
+            /*case 1:
                 System.out.println("=================================================================");
                 System.out.println("Début de l'installation de l'application.");
                 System.out.println("=================================================================");
