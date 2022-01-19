@@ -14,7 +14,8 @@ import java.util.Scanner;
 public class Setup {
     private static final JSONObject structure = DbCParser.parseFile("./Setup/data/structure.json");
     private static final InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
-    private static final String dataPath = "./data/Inventaire Magasin 2021 en cours Modifier.xlsx";
+    private static final String xlsxDataPath = "./Setup/data/Inventaire Magasin 2021 en cours Modifier.xlsx";
+    private static final String jsonDataPath = "./Setup/data/dataSaved.json";
 
     private static DbGestion dbGest;
     private static Connection connexion;
@@ -76,7 +77,7 @@ public class Setup {
                 System.out.println("=================================================================");
                 System.out.println("test de load .");
                 System.out.println("=================================================================");
-                XlsxLoad();
+                LoadChoice();
                 System.out.println("=================================================================");
                 System.out.println("Loading Finished");
                 System.out.println("=================================================================");
@@ -99,7 +100,7 @@ public class Setup {
 
     private static void SaveData() {
         JSONObject object = dbGest.SaveDataToJson();
-        JsonWrite(object,"./Setup/data/dataSaved.json");
+        JsonWrite(object,jsonDataPath);
     }
 
     private static void JsonWrite(JSONObject object, String path) {
@@ -133,7 +134,7 @@ public class Setup {
                 System.out.println("Vous avez choisi d'annuler le chargement.");
                 System.out.println("=================================================================");
                 break;
-            /*case 1:
+            case 1:
                 System.out.println("=================================================================");
                 System.out.println("Début de l'installation de l'application.");
                 System.out.println("=================================================================");
@@ -141,7 +142,7 @@ public class Setup {
                 System.out.println("=================================================================");
                 System.out.println("Installation terminée");
                 System.out.println("=================================================================");
-                break;*/
+                break;
             case 2:
                 System.out.println("=================================================================");
                 System.out.println("Début de l'installation de l'application.");
@@ -165,24 +166,24 @@ public class Setup {
         LoadChoice();
     }
 
-    /*private static void JsonLoad() {
-        JSONObject datas = DbCParser.parseFile("data.json");
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure),datas,connexion);
-    }*/
+    private static void JsonLoad() {
+        JSONObject datas = DbCParser.parseFile(jsonDataPath);
+        dbGest.InsertData(Parameter.GetDataTableParameter(structure),datas,connexion);
+    }
 
     private static void XlsxLoad() {
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("alestaraudlame"), XlsxReaderWritter.Reader(dataPath, 0), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("bobine"), XlsxReaderWritter.Reader(dataPath, 1), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("cartouche"), XlsxReaderWritter.Reader(dataPath, 2), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("consommable"), XlsxReaderWritter.Reader(dataPath, 3), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("disqueTronMeul"), XlsxReaderWritter.Reader(dataPath, 4), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("epi"), XlsxReaderWritter.Reader(dataPath, 5), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("foret"), XlsxReaderWritter.Reader(dataPath, 6), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matInfo"), XlsxReaderWritter.Reader(dataPath, 7), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matiere"), XlsxReaderWritter.Reader(dataPath, 8), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("piles"), XlsxReaderWritter.Reader(dataPath, 9), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("papier"), XlsxReaderWritter.Reader(dataPath, 10), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("tiges"), XlsxReaderWritter.Reader(dataPath, 11), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("alestaraudlame"), XlsxReaderWritter.Reader(xlsxDataPath, 0), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("bobine"), XlsxReaderWritter.Reader(xlsxDataPath, 1), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("cartouche"), XlsxReaderWritter.Reader(xlsxDataPath, 2), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("consommable"), XlsxReaderWritter.Reader(xlsxDataPath, 3), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("disqueTronMeul"), XlsxReaderWritter.Reader(xlsxDataPath, 4), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("epi"), XlsxReaderWritter.Reader(xlsxDataPath, 5), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("foret"), XlsxReaderWritter.Reader(xlsxDataPath, 6), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matInfo"), XlsxReaderWritter.Reader(xlsxDataPath, 7), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matiere"), XlsxReaderWritter.Reader(xlsxDataPath, 8), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("piles"), XlsxReaderWritter.Reader(xlsxDataPath, 9), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("papier"), XlsxReaderWritter.Reader(xlsxDataPath, 10), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("tiges"), XlsxReaderWritter.Reader(xlsxDataPath, 11), connexion);
     }
 
     private static String printChoice() {
