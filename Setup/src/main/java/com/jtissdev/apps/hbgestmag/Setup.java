@@ -136,7 +136,7 @@ public class Setup {
                 break;
             case 1:
                 System.out.println("=================================================================");
-                System.out.println("Début de l'installation de l'application.");
+                System.out.println("Loading From Json File.");
                 System.out.println("=================================================================");
                 JsonLoad();
                 System.out.println("=================================================================");
