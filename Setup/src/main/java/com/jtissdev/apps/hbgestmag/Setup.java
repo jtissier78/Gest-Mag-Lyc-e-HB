@@ -4,31 +4,75 @@ import com.jtissdev.databaseconnect.DbGestion;
 import com.jtissdev.databaseconnect.FlieReaderWirtter.XlsxReaderWritter;
 import com.jtissdev.databaseconnect.Parameter.DbCParser;
 import com.jtissdev.databaseconnect.Parameter.Parameter;
-import org.json.simple.JSONObject;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
+import org.json.simple.JSONObject;
 
-public class Setup {
-    private static final JSONObject structure = DbCParser.parseFile("./Setup/data/structure.json");
-    private static final InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
-    private static final String xlsxDataPath = "./Setup/data/Inventaire Magasin 2021 en cours Modifier.xlsx";
-    private static final String jsonDataPath = "./Setup/data/dataSaved.json";
-
+/**
+ * @author J.Tissier
+ * @version 1.0
+ */
+public final class Setup {
+    /** DataBase Structure File. */
+    private static final JSONObject STRUCTURE
+            = DbCParser.parseFile("./Setup/data/structure.json");
+    /** Input retrieve database connexions parameter. */
+    private static final InputStream INPUT = Thread.currentThread()
+            .getContextClassLoader().getResourceAsStream("config.properties");
+    /** Xlsx data Sources File. */
+    private static final String XLSXDATAPATH
+            = "./Setup/data/Inventaire Magasin 2021 en cours Modifier.xlsx";
+    /** Json Save Data File.*/
+    private static final String JSON_DATA_PATH = "./Setup/data/dataSaved.json";
+    /** Exit code for each script console.*/
+    private static final int EXIT_CODE = 99;
+    /** because maven says I have to.*/
+    private static final int SAVE_CHOICE = 3;
+    /** because maven says I have to.*/
+    private static final int CONSOMMABLE = 3;
+    /** because maven says I have to.*/
+    private static final int DISQUE_TRON_MEUL = 4;
+    /** because maven says I have to.*/
+    private static final int EPI = 5;
+    /** because maven says I have to.*/
+    private static final int FORET = 6;
+    /** because maven says I have to.*/
+    private static final int MAT_INFO = 7;
+    /** because maven says I have to.*/
+    private static final int MATIERE = 8;
+    /** because maven says I have to.*/
+    private static final int PILES = 9;
+    /** because maven says I have to.*/
+    private static final int PAPIER = 10;
+    /** because maven says I have to.*/
+    private static final int TIGES = 11;
+    /** DbGestion Système de gestion de connexion à la DB. */
     private static DbGestion dbGest;
+    /** Connexion JDBC to DataBase.*/
     private static Connection connexion;
 
+    private Setup() { }
+
+    /**Program launch method.
+     *
+     */
     public static void main(String[] args) {
-        dbGest = new DbGestion(input, structure);
+
+        dbGest = new DbGestion(INPUT, STRUCTURE);
         connexion = dbGest.getConnexion("grant");
         System.out.println("=================================================================");
-        System.out.println("Bienvenue dans le Script de Maintenance de l'application de \n Gestion du Magasin du Lycéee Henri Brisson de Vierzon.");
+        System.out.println("Bienvenue dans le Script de Maintenance de l'application de "
+                +
+                "\n Gestion du Magasin du Lycéee Henri Brisson de Vierzon.");
         System.out.println("=================================================================");
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
-        while (choice != 99) {
+        while (choice != EXIT_CODE) {
             System.out.println(printChoice());
             System.out.println("Votre choix = ");
             choice = scanner.nextInt();
@@ -43,13 +87,13 @@ public class Setup {
         }
     }
 
-    private static void LoadChoice() {
+    private static void loadChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================================================");
         System.out.println("Merci de Choisir le Format de Fichier source.");
         System.out.println("=================================================================");
         int choice = 0;
-        while (choice != 99) {
+        while (choice != EXIT_CODE) {
             System.out.println(printLoadChoice());
             System.out.println("Votre choix = ");
             choice = scanner.nextInt();
@@ -59,7 +103,7 @@ public class Setup {
 
     private static void switchChoice(int choice) {
         switch (choice) {
-            case 99:
+            case EXIT_CODE:
                 System.out.println("=================================================================");
                 System.out.println("Vous avez choisi de quitter l'utilitaire d'installation.");
                 System.out.println("=================================================================");
@@ -77,16 +121,16 @@ public class Setup {
                 System.out.println("=================================================================");
                 System.out.println("test de load .");
                 System.out.println("=================================================================");
-                LoadChoice();
+                loadChoice();
                 System.out.println("=================================================================");
                 System.out.println("Loading Finished");
                 System.out.println("=================================================================");
                 break;
-            case 3:
+            case SAVE_CHOICE:
                 System.out.println("=================================================================");
                 System.out.println("Saving Data");
                 System.out.println("=================================================================");
-                SaveData();
+                saveData();
                 System.out.println("=================================================================");
                 System.out.println("Data Saved");
                 System.out.println("=================================================================");
@@ -98,28 +142,26 @@ public class Setup {
         }
     }
 
-    private static void SaveData() {
+    private static void saveData() {
         JSONObject object = dbGest.SaveDataToJson();
-        JsonWrite(object,jsonDataPath);
+        jsonWrite(object);
     }
 
-    private static void JsonWrite(JSONObject object, String path) {
+    private static void jsonWrite(JSONObject object) {
         FileWriter wrfile = null;
-        File file = new File(path);
+        File file = new File(Setup.JSON_DATA_PATH);
         file.getParentFile().mkdirs(); // Will create parent directories if not exists
         try {
             file.createNewFile();
-            FileOutputStream s = new FileOutputStream(file,false);
-            wrfile = new FileWriter(path);
+            wrfile = new FileWriter(Setup.JSON_DATA_PATH);
             wrfile.write(object.toJSONString());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
-                wrfile.close();
+                if (wrfile != null) {
+                    wrfile.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -129,7 +171,7 @@ public class Setup {
 
     private static void switchLoadChoice(int choice) {
         switch (choice) {
-            case 99:
+            case EXIT_CODE:
                 System.out.println("=================================================================");
                 System.out.println("Vous avez choisi d'annuler le chargement.");
                 System.out.println("=================================================================");
@@ -138,7 +180,7 @@ public class Setup {
                 System.out.println("=================================================================");
                 System.out.println("Loading From Json File.");
                 System.out.println("=================================================================");
-                JsonLoad();
+                jsonLoad();
                 System.out.println("=================================================================");
                 System.out.println("Installation terminée");
                 System.out.println("=================================================================");
@@ -147,7 +189,7 @@ public class Setup {
                 System.out.println("=================================================================");
                 System.out.println("Début de l'installation de l'application.");
                 System.out.println("=================================================================");
-                XlsxLoad();
+                xlsxLoad();
                 System.out.println("=================================================================");
                 System.out.println("Installation terminée");
                 System.out.println("=================================================================");
@@ -163,48 +205,56 @@ public class Setup {
         dbGest.DbCreate();
         dbGest.UsersCreate();
         dbGest.TableCreate();
-        LoadChoice();
+        loadChoice();
     }
 
-    private static void JsonLoad() {
-        JSONObject datas = DbCParser.parseFile(jsonDataPath);
-        dbGest.InsertData(Parameter.GetDataTableParameter(structure),datas,connexion);
+    private static void jsonLoad() {
+        JSONObject datas = DbCParser.parseFile(JSON_DATA_PATH);
+        dbGest.InsertData(Parameter.GetDataTableParameter(STRUCTURE), datas, connexion);
     }
 
-    private static void XlsxLoad() {
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("alestaraudlame"), XlsxReaderWritter.Reader(xlsxDataPath, 0), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("bobine"), XlsxReaderWritter.Reader(xlsxDataPath, 1), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("cartouche"), XlsxReaderWritter.Reader(xlsxDataPath, 2), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("consommable"), XlsxReaderWritter.Reader(xlsxDataPath, 3), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("disqueTronMeul"), XlsxReaderWritter.Reader(xlsxDataPath, 4), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("epi"), XlsxReaderWritter.Reader(xlsxDataPath, 5), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("foret"), XlsxReaderWritter.Reader(xlsxDataPath, 6), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matInfo"), XlsxReaderWritter.Reader(xlsxDataPath, 7), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("matiere"), XlsxReaderWritter.Reader(xlsxDataPath, 8), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("piles"), XlsxReaderWritter.Reader(xlsxDataPath, 9), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("papier"), XlsxReaderWritter.Reader(xlsxDataPath, 10), connexion);
-        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(structure).get("tiges"), XlsxReaderWritter.Reader(xlsxDataPath, 11), connexion);
+    private static void xlsxLoad() {
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("alestaraudlame"), XlsxReaderWritter.Reader(XLSXDATAPATH, 0), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("bobine"), XlsxReaderWritter.Reader(XLSXDATAPATH, 1), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("cartouche"), XlsxReaderWritter.Reader(XLSXDATAPATH, 2), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("consommable"), XlsxReaderWritter.Reader(XLSXDATAPATH, CONSOMMABLE), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("disqueTronMeul"), XlsxReaderWritter.Reader(XLSXDATAPATH, DISQUE_TRON_MEUL), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("epi"), XlsxReaderWritter.Reader(XLSXDATAPATH, EPI), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("foret"), XlsxReaderWritter.Reader(XLSXDATAPATH, FORET), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("matInfo"), XlsxReaderWritter.Reader(XLSXDATAPATH, MAT_INFO), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("matiere"), XlsxReaderWritter.Reader(XLSXDATAPATH, MATIERE), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("piles"), XlsxReaderWritter.Reader(XLSXDATAPATH, PILES), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("papier"), XlsxReaderWritter.Reader(XLSXDATAPATH, PAPIER), connexion);
+        dbGest.InsertData((JSONObject) Parameter.GetDataTableParameter(STRUCTURE)
+                .get("tiges"), XlsxReaderWritter.Reader(XLSXDATAPATH, TIGES), connexion);
     }
 
     private static String printChoice() {
         String line = "------------------------------------------------------- \n";
-        StringBuilder msg = new StringBuilder("Merci de choisir l'action que vous souhaiter accomplir. \n");
-        msg.append(line).append("Choix 1 : Setup.\n");
-        msg.append(line).append("Choix 2 : Load Db.\n");
-        msg.append(line).append("Choix 3 : Save Data.\n");
-        msg.append(line).append("Choix 99 : Quit.\n");
-        msg.append(line);
-        return msg.toString();
+        return "Merci de choisir l'action que vous souhaiter accomplir. \n" + line + "Choix 1 : Setup.\n" +
+                line + "Choix 2 : Load Db.\n" +
+                line + "Choix 3 : Save Data.\n" +
+                line + "Choix 99 : Quit.\n" +
+                line;
     }
 
     private static String printLoadChoice() {
         String line = "------------------------------------------------------- \n";
-        StringBuilder msg = new StringBuilder("Merci de choisir le format du Fichier. \n");
-        msg.append(line).append("Choix 1 : JSON : data.json.\n");
-        msg.append(line).append("Choix 2 : XLSX : inventaire Magasin.\n");
-        msg.append(line).append("Choix 99 : Quit.\n");
-        msg.append(line);
-        return msg.toString();
+        return "Merci de choisir le format du Fichier. \n" + line + "Choix 1 : JSON : data.json.\n" +
+                line + "Choix 2 : XLSX : inventaire Magasin.\n" +
+                line + "Choix 99 : Quit.\n" +
+                line;
     }
 
 }

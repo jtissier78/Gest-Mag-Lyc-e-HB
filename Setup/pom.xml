@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- =============================================================== -->
-    <!-- Informations du projet -->
+    <!-- Project's information -->
     <!-- =============================================================== -->
-    <!-- ===== Informations Maven ===== -->
+    <!-- ===== Maven's Information ===== -->
     <groupId>com.jtissdev</groupId>
     <artifactId>SetupMagGest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!-- ===== Informations générales ===== -->
-    <!-- =====  le nom du projet ===== -->
+    <!-- ===== General Information ===== -->
+    <!-- =====  Project name ===== -->
     <name>Setup Gestion Magasin</name>
     <!--  <url></url> -->
 
-    <!-- =====   la description du projet ===== -->
+    <!-- =====   Project Description ===== -->
     <description>Script d'installation et d'exportabilité de la base de données pour l'application de Gestion du magasin du lycée Henry Brisson à Vierzon</description>
 
     <!-- ===== Organisation ===== -->
@@ -67,14 +67,14 @@
         <istack.version>3.0.7</istack.version>
         <maven.compiler.version>3.1</maven.compiler.version>
         <maven.dependency.version>3.1.1</maven.dependency.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
         <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
 
-        <junit.version>5.6.0</junit.version>
+        <junit.version>5.8.2</junit.version>
 
         <checkstyle.version>8.29</checkstyle.version>
         <checkstyle-rules.version>4.0.1</checkstyle-rules.version>
@@ -86,20 +86,16 @@
         <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
         <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
 
-        <!--<systemProperties>
-            <systemProperty>
-                <key>env</key>
-                <value>${env}</value>
-            </systemProperty>
-        </systemProperties>-->
+
     </properties>
 
     <dependencies>
+
         <!-- JUnit  -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <!-- JUnit Api -->
@@ -121,7 +117,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>16.0.1</version>
+            <version>22.0.0</version>
         </dependency>
 
         <!-- JTissDev.Lib ConfigDataBaseAccess -->
@@ -129,15 +125,35 @@
             <groupId>com.JTissDev.Lib</groupId>
             <artifactId>ConfigDataBaseAccess</artifactId>
             <version>3.0.1</version>
-            <!-- <scope>system</scope>
+           <scope>provided</scope>
             <type>jar</type>
-            <systemPath>${basedir}/lib/ConfigDataBaseAccess-1.0.0.jar</systemPath> -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>2.5.2</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.2</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.8.2</version>
+            <type>maven-plugin</type>
         </dependency>
     </dependencies>
 
     <!-- ===== Build ===== -->
     <build>
-        <finalName>HBGestMag</finalName>
+        <finalName>Henri Brisson Gestion Magasin</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
@@ -169,6 +185,12 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
+                <!-- Plugin responsable de la génération du fichier JAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -195,7 +217,7 @@
                 </executions>
             </plugin>
             <!-- maven-checkstyle-plugin -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
@@ -212,7 +234,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <configLocation>com/github/ngeor/checkstyle.xml</configLocation>
+
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
 
                 </configuration>
@@ -225,7 +247,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!-- maven-surfire-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -306,9 +328,28 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>8</source>
+                    <target>8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.jtissdev.apps.hbgestmag.Setup</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <url>${project.url}</url>
+                            <key>value</key>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <!-- maven-dependency-plugin -->
@@ -316,17 +357,65 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>${maven.dependency.version}</version>
+
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+
+                    <encoding>UTF-8</encoding>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>junit</groupId>
+                            <artifactId>junit</artifactId>
+                            <version>3.8.1</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
+                            <destFileName>optional-new-name.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                    <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.jtissdev.apps.hbgestmag.Setup</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
 
         </plugins>
 
