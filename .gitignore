@@ -30,3 +30,5 @@ Setup/data/dataSaved.json
 /src/main/resources/
 .gitignore
 /target/
+
+*.xlsx
