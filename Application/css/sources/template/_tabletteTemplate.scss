@@ -1,0 +1,57 @@
+html{
+    //background-color: green;
+    header{
+        
+        #main-Header-Section{
+            display: flex;   
+            justify-content: space-between;
+            
+            section{width: 30%;}
+        }
+        
+        
+        nav{
+            display: block;
+            
+        }
+    }
+    
+    main{
+        display: flex;
+        aside{
+            width: 30%;
+        }
+        
+        .about-main-section{
+            #my-Skills-list{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                .skill-element{
+                    flex: 1 1 30%;
+                }
+            }
+        }
+    }
+    
+    footer{
+        display: flex; 
+        justify-content: space-between;
+        
+        #footer-Title{
+            flex: 1 1 30%;
+            order: 1;
+        }
+        
+        #mention{
+            flex: 1 1 30%;
+            order: 2;
+        }
+        
+        #contact{
+            flex: 1 1 30%;
+            order: 3;        
+        }
+    }
+}
+
