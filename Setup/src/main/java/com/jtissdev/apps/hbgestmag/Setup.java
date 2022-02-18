@@ -1,6 +1,7 @@
 package com.jtissdev.apps.hbgestmag;
 
 import com.jtissdev.databaseconnect.DbGestion;
+import com.jtissdev.databaseconnect.DbSetup;
 import com.jtissdev.databaseconnect.FlieReaderWirtter.XlsxReaderWritter;
 import com.jtissdev.databaseconnect.Parameter.DbCParser;
 import com.jtissdev.databaseconnect.Parameter.Parameter;
@@ -17,7 +18,7 @@ import org.json.simple.JSONObject;
  * @author J.Tissier
  * @version 1.0
  */
-public final class Setup {
+public final class Setup  {
     /** DataBase Structure File. */
     private static final JSONObject STRUCTURE
             = DbCParser.parseFile("./Setup/data/structure.json");
@@ -86,6 +87,7 @@ public final class Setup {
             }
         }
     }
+
 
     private static void loadChoice() {
         Scanner scanner = new Scanner(System.in);
