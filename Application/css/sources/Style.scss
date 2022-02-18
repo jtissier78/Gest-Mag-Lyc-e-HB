@@ -1,0 +1,25 @@
+/*sass --watch Style.scss ../Style.css*/
+
+@import "./partials/mixins";
+@import "template/generiqTemplate.scss";
+
+
+
+footer{
+
+    @include md{
+        
+        display: flex;
+        justify-content: space-between;
+    } 
+    background-color: $main-background-color;
+    padding: 2%;
+    border-radius: 5%;
+    //display: block; 
+    /* flex-direction: column; */
+    
+    div{
+        text-align: center;
+        line-height : 5px;
+    }
+}
