@@ -32,3 +32,4 @@ Setup/data/dataSaved.json
 /target/
 
 *.xlsx
+/Setup/Api/src/main/resources/
