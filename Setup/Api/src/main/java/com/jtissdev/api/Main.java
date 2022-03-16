@@ -1,6 +1,7 @@
 package com.jtissdev.api;
 
 import com.jtissdev.api.Resources.ConsommableRessource;
+import com.jtissdev.databaseconnect.Parameter.DbCParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -11,10 +12,13 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.json.simple.JSONObject;
 
 
 public class Main {
 
+    private static final JSONObject STRUCTURE
+            = DbCParser.parseFile("./Setup/data/structure.json");
     public static final URI BASE_URI = getBaseURI();
     /** Input retrieve database connexions parameter. */
     private static final InputStream INPUT = Thread.currentThread()
