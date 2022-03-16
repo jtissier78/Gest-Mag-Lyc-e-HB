@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>SetupMagGest</artifactId>
+        <groupId>com.jtissdev</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jtissdev.api</groupId>
+    <artifactId>Api</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <name>Henri Brisson Gestion Magasin API</name>
+    <description>Api de l'application de gestion magasin du Lyçée Henri Brisson</description>
+
+    <organization>
+        <name>Lyçée Henri Brisson</name>
+        <url>https://lycee-henribrisson.com/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>Jtiss</id>
+            <name>J.Tissier</name>
+            <email>jtdevweb@gmail.com</email>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    
+</project>
