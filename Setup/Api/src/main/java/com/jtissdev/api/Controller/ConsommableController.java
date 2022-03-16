@@ -82,7 +82,7 @@ public class ConsommableController {
         try {
             while (result.next()) {
                 //System.out.println(result);
-                data.add(new Consumable(result.getInt("id"), result.getString("designation"), result.getString("unite"), result.getInt("quantite"), result.getDouble("pu")).toJSON());
+                data.add(new Consumable(result.getInt("id"), result.getString("designation"), result.getString("unites"), result.getInt("quantite"), result.getDouble("pu")).toJSON());
             }
             jsondata.put("data", data);
         } catch (SQLException throwables) {

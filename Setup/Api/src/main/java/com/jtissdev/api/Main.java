@@ -2,16 +2,16 @@ package com.jtissdev.api;
 
 import com.jtissdev.api.Resources.ConsommableRessource;
 import com.jtissdev.databaseconnect.Parameter.DbCParser;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
 import java.util.logging.Level;
 import javax.ws.rs.core.UriBuilder;
-import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.json.simple.JSONObject;
 
 
@@ -19,10 +19,11 @@ public class Main {
 
     private static final JSONObject STRUCTURE
             = DbCParser.parseFile("./Setup/data/structure.json");
-    public static final URI BASE_URI = getBaseURI();
     /** Input retrieve database connexions parameter. */
     private static final InputStream INPUT = Thread.currentThread()
             .getContextClassLoader().getResourceAsStream("config.properties");
+    public static final URI BASE_URI = getBaseURI();
+
 
 
 
@@ -32,7 +33,7 @@ public class Main {
      * @return URI
      * generated for local usage
      */
-    private static URI getBaseURI() {return UriBuilder.fromUri(getProperties(INPUT).getProperty("Api.Url")).port(9991).build();}
+    private static URI getBaseURI() {return UriBuilder.fromUri(getProperties(INPUT).getProperty("Api.URL")).port(9991).build();}
 
     /**
      * Main method.
