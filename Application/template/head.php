@@ -1,4 +1,4 @@
-
+<?php include_once 'Languages/lang.fr.php';?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="fr-FR" xml:lang="fr-FR">
